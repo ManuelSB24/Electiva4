@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Planetas</title>
+    <script src="three.js"></script>
+
+</head>
+
+<body>
+    <!--Canvas-Escenario de trabajo-->
+    <script>
+        //Factory Planetas
+        function GPlanetas(a, b, c) {
+            var geometria = new THREE.SphereGeometry(a, b, c);
+            var material = new THREE.MeshNormalMaterial();
+            var planeta = new THREE.Mesh(geometria, material);
+            return planeta;
+        }
+        function GCubos(a, b, c) {
+            var geometria = new THREE.BoxGeometry(a, b, c);
+            var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            var cubo = new THREE.Mesh(geometria, material);
+            return cubo;
+        }
+    </script>
+
+    <script>
+        //Render WEBGL   
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        //No se cambia
+        const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 400);
+        camera.position.set(0, 0, 20);
+        const scene = new THREE.Scene();//Grafo de escena
+        var loader = new THREE.TextureLoader();
+        loader.load('./Espacio.jpg', function (texture) {
+            scene.background = texture;
+        });
+        //Son los que poco cambian
+
+        //elementos graficos->primitivas
+        //esferas, cubos, piramides
+        //malla, textura= mesh
+
+
+        var sol = new GCubos(1, 1, 1);
+
+        var planeta1 = new GPlanetas(0.4, 50, 50);
+        var radio1 = 2;
+
+        var planeta2 = new GPlanetas(0.8, 50, 50);
+        var radio2 = 4;
+
+        var planeta3 = new GPlanetas(1, 50, 50);
+        var radio3 = 7;
+
+        var planeta4 = new GPlanetas(1.2, 50, 50);
+        var radio4 = 10;
+
+        var planeta5 = new GPlanetas(1.5, 50, 50);
+        var radio5 = 14;
+
+        var planeta6 = new GPlanetas(2, 50, 50);
+        var radio6 = 20;
+
+        var planeta7 = new GPlanetas(2.2, 50, 50);
+        var radio7 = 30;
+
+        scene.add(sol);
+        scene.add(planeta1);
+        scene.add(planeta2);
+        scene.add(planeta3);
+        scene.add(planeta4);
+        scene.add(planeta5);
+        scene.add(planeta6);
+        scene.add(planeta7);
+        renderer.render(scene, camera);
+
+        var a1 = 0; var a2 = 0; var a3 = 0; var a4 = 0; var a5 = 0; var a6 = 0; var a7 = 0; var a8 = 0; var a9 = 0;
+        var animar = function () {
+            //Velocidad
+            a1 = a1 + 0.01; a2 = a1 / 2 + 0.01; a3 = a2 / 2 + 0.01; a4 = a3 / 2 + 0.01; a5 = a5 + 0.001; a6 = a6 + 0.001; a7 = a6 / 2 + 0.01; a8 = a7 / 2 + 0.01; a9 = a8 / 2 + 0.01;
+            //Rotacion   
+            planeta1.position.x = radio1 * Math.cos(a1);
+            planeta1.position.y = radio1 * Math.sin(a1);
+            planeta2.position.x = radio2 * Math.cos(a2);
+            planeta2.position.y = radio2 * Math.sin(a2);
+            planeta3.position.x = radio3 * Math.cos(a3);
+            planeta3.position.y = radio3 * Math.sin(a3);
+            planeta4.position.x = radio4 * Math.cos(a4);
+            planeta4.position.y = radio4 * Math.sin(a4);
+            planeta5.position.x = radio5 * Math.cos(a5);
+            planeta5.position.y = radio5 * Math.sin(a5);
+            planeta6.position.x = radio6 * Math.cos(a6);
+            planeta6.position.y = radio6 * Math.sin(a6);
+            planeta7.position.x = radio7 * Math.cos(a7);
+            planeta7.position.y = radio7 * Math.sin(a7);
+            sol.rotation.x += 0.01;//transform group
+            sol.rotation.y += 0.01;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animar);//ejectutar un funcion a 60fps//setup
+
+        }
+
+        animar();
+
+
+    </script>
+
+
+
+</body>
+
+</html>

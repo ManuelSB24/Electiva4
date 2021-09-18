@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Taller # 3</title>
+    <script src="three.js"></script>
+
+</head>
+
+<body>
+
+    <!--Canvas-Escenario de trabajo-->
+    <script>
+        function aleatorios() {
+            var aleatorio = Math.round(Math.random() * 22);
+            return aleatorio;
+        }
+        function Constelaciones() {
+            const materialx = new THREE.LineBasicMaterial({ color: 0x0000ff });
+            const points = [];
+            const a = aleatorios();
+            const b = aleatorios();
+            const c = aleatorios();
+            const d = aleatorios();
+            const e = aleatorios();
+            points.push(new THREE.Vector2(a, d));
+            points.push(new THREE.Vector2(0, b));
+            points.push(new THREE.Vector2(c, 0));
+            points.push(new THREE.Vector2(0, 0));
+            points.push(new THREE.Vector2(b, c));
+            points.push(new THREE.Vector2(0, e));
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const Line = new THREE.Line(geometry, materialx);
+            return Line;
+        }
+    </script>
+    <script>
+
+        //Render WEBGL   
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        //No se cambia
+        const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 400);
+        camera.position.set(0, 0, 20);
+        const scene = new THREE.Scene();//Grafo de escena
+
+        Linea = new Constelaciones();
+        scene.add(Linea);
+
+
+
+        renderer.render(scene, camera);
+
+        var animar = function () {
+            renderer.render(scene, camera);
+            requestAnimationFrame(animar);//ejectutar un funcion a 60fps//setup
+        }
+
+        animar();
+
+
+    </script>
+</body>
+
+</html>
